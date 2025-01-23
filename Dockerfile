@@ -8,11 +8,10 @@ SHELL ["/bin/bash", "-eo", "pipefail", "-c"]
 ARG oras_version=1.2.2
 
 # Update dnf
-RUN dnf update -y && dnf upgrade -y
-
-# Install aws and tar
-RUN dnf install -y awscli-2 && \
-    dnf install -y tar gzip
+RUN dnf update -y && \
+    dnf upgrade -y && \
+    dnf install -y tar gzip awscli-2 && \
+    dnf clean all
 
 # Install oras
 RUN curl -LO https://github.com/oras-project/oras/releases/download/v${oras_version}/oras_${oras_version}_linux_amd64.tar.gz && \
